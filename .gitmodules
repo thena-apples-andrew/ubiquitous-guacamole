@@ -1,6 +1,6 @@
 [submodule "detours"]
 	path = detours
-	url = https://github.com/microsoft/Detours
+	url = https://github.com/microsoft/Detours.git
 [submodule "native/dropt"]
 	path = native/dropt
 	url = https://github.com/jamesderlin/dropt
