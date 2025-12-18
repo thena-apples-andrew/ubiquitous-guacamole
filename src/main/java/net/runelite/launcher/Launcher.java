@@ -499,18 +499,11 @@ public class Launcher
 			.GET()
 			.build();
 
-//		HttpRequest bootstrapSigReq = HttpRequest.newBuilder()
-//			.uri(URI.create(LauncherProperties.getBootstrapSig()))
-//			.header("User-Agent", USER_AGENT)
-//			.GET()
-//			.build();
-
-		HttpResponse<byte[]> bootstrapResp, bootstrapSigResp;
+		HttpResponse<byte[]> bootstrapResp;
 
 		try
 		{
 			bootstrapResp = httpClient.send(bootstrapReq, HttpResponse.BodyHandlers.ofByteArray());
-//			bootstrapSigResp = httpClient.send(bootstrapSigReq, HttpResponse.BodyHandlers.ofByteArray());
 		}
 		catch (InterruptedException ex)
 		{
@@ -522,23 +515,7 @@ public class Launcher
 			throw new IOException("Unable to download bootstrap (status code " + bootstrapResp.statusCode() + "): " + new String(bootstrapResp.body()));
 		}
 
-//		if (bootstrapSigResp.statusCode() != 200)
-//		{
-//			throw new IOException("Unable to download bootstrap signature (status code " + bootstrapSigResp.statusCode() + "): " + new String(bootstrapSigResp.body()));
-//		}
-
 		final byte[] bytes = bootstrapResp.body();
-//		final byte[] signature = bootstrapSigResp.body();
-//
-//		Certificate certificate = getCertificate();
-//		Signature s = Signature.getInstance("SHA256withRSA");
-//		s.initVerify(certificate);
-//		s.update(bytes);
-//
-//		if (!s.verify(signature))
-//		{
-//			throw new VerificationException("Unable to verify bootstrap signature");
-//		}
 
 		Gson g = new Gson();
 		return g.fromJson(new InputStreamReader(new ByteArrayInputStream(bytes)), Bootstrap.class);
